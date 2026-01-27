@@ -186,11 +186,11 @@ export const sendOwnerBookingNotification = async (
     try {
         const { bookingId, guestName, guestEmail, guestPhone, roomName, checkIn, checkOut, totalAmount, adults, children, numExtraBeds } = bookingDetails
 
-        const ownerEmail = process.env.OWNER_EMAIL || "contact@onewstar.in"
+        const ownerEmails = ["mahendrasahoo4789@gmail.com", "shreyashatake@gmail.com"]
 
         const data = await resend.emails.send({
             from: "Contact <contact@onewstar.in>",
-            to: ownerEmail,
+            to: ownerEmails,
             subject: `New Booking Alert! - #${bookingId}`,
             html: `
             <!DOCTYPE html>

@@ -28,9 +28,9 @@ export function SearchForm({ onSearch, initialValues }: SearchFormProps) {
     to: initialValues?.checkOut ? new Date(initialValues.checkOut) : undefined,
   })
 
+  // We only track "adults" in the UI now, but we'll call it "Guests"
   const [formData, setFormData] = useState({
     adults: initialValues?.adults || "2",
-    children: initialValues?.children || "0",
   })
 
   const [isCheckInOpen, setIsCheckInOpen] = useState(false)
@@ -45,7 +45,7 @@ export function SearchForm({ onSearch, initialValues }: SearchFormProps) {
     }
 
     if (!formData.adults || Number.parseInt(formData.adults) < 1) {
-      toast.error("At least one adult is required")
+      toast.error("At least one guest is required")
       return
     }
 
@@ -53,13 +53,14 @@ export function SearchForm({ onSearch, initialValues }: SearchFormProps) {
       checkIn: format(date.from, "yyyy-MM-dd"),
       checkOut: format(date.to, "yyyy-MM-dd"),
       adults: Number.parseInt(formData.adults),
-      children: Number.parseInt(formData.children) || 0,
+      children: 0, // Default to 0 as field is removed
     })
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      {/* Changed grid to 3 columns */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         {/* Check In */}
         <div className="space-y-2">
           <Label className="text-sm font-medium text-gray-700">Check In</Label>
@@ -133,10 +134,10 @@ export function SearchForm({ onSearch, initialValues }: SearchFormProps) {
           </div>
         </div>
 
-        {/* Guests (Adults) */}
+        {/* Guests (Renamed from Adults) */}
         <div className="space-y-2">
           <Label htmlFor="adults" className="text-sm font-medium text-gray-700">
-            Adults
+            Number of Guests
           </Label>
           <div className="relative">
             <Users className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#2671D9]" />
@@ -144,31 +145,11 @@ export function SearchForm({ onSearch, initialValues }: SearchFormProps) {
               id="adults"
               type="number"
               min="1"
-              max="10"
+              max="20"
               value={formData.adults}
               onChange={(e) => setFormData({ ...formData, adults: e.target.value })}
               className="pl-10 bg-white border-gray-300 h-10"
-              placeholder="2 Adults"
-            />
-          </div>
-        </div>
-
-        {/* Guest 2A (Children) */}
-        <div className="space-y-2">
-          <Label htmlFor="children" className="text-sm font-medium text-gray-700">
-            Children
-          </Label>
-          <div className="relative">
-            <Users className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#2671D9]" />
-            <Input
-              id="children"
-              type="number"
-              min="0"
-              max="10"
-              value={formData.children}
-              onChange={(e) => setFormData({ ...formData, children: e.target.value })}
-              className="pl-10 bg-white border-gray-300 h-10"
-              placeholder="0 Children"
+              placeholder="2 Guests"
             />
           </div>
         </div>

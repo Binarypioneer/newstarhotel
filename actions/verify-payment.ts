@@ -113,7 +113,9 @@ export async function verifyPayment(params: VerifyPaymentParams) {
         })
 
         if (fullBooking?.room) {
-            const { sendBookingConfirmationEmail } = await import("@/lib/mail")
+            const { sendBookingConfirmationEmail, sendOwnerBookingNotification } = await import("@/lib/mail")
+
+            // Send Guest Confirmation
             await sendBookingConfirmationEmail(
                 guestEmail,
                 {
@@ -127,6 +129,21 @@ export async function verifyPayment(params: VerifyPaymentParams) {
                     children: children
                 }
             )
+
+            // Send Owner Notification
+            await sendOwnerBookingNotification({
+                bookingId: booking.id.toString(),
+                guestName: guestName,
+                guestEmail: guestEmail,
+                guestPhone: guestPhone,
+                roomName: fullBooking.room.room_name,
+                checkIn: formatDate(checkIn),
+                checkOut: formatDate(checkOut),
+                totalAmount: Number(totalAmount),
+                adults: adults,
+                children: children,
+                numExtraBeds: 0 // Assuming 0 as it was not in params, or logic requires update if it is
+            })
         }
 
         return { success: true, bookingId: booking.id }

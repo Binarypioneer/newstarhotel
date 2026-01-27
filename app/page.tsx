@@ -4,7 +4,7 @@ import { useState } from "react"
 import { SearchForm } from "@/components/search-form"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { MapPin, Phone, Mail, Wifi, Car, Coffee, Wind, Tv, MapPinned, Quote } from "lucide-react"
+import { MapPin, Phone, Mail, Wifi, Car, Coffee, Wind, Tv, MapPinned, Quote, Search } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
@@ -76,71 +76,76 @@ export default function HomePage() {
       </section>
 
       {/* About Us Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-24 bg-white relative overflow-hidden">
+        {/* Decorative background element */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-blue-50/30 skew-x-12 translate-x-32 -z-10" />
+
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-3">About Us</h2>
-            <p className="text-gray-600">Discover the story behind O New Star Hotel</p>
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">About Our Legacy</h2>
+            <div className="w-24 h-1.5 bg-[#2671D9] mx-auto rounded-full mb-6" />
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+              Discover the story behind O New Star Hotel, where tradition meets modern comfort.
+            </p>
           </div>
 
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            {/* Images */}
-            <div className="relative">
-              <div className="grid grid-cols-2 gap-4">
-                <img src="/images/about-2.png" alt="Hotel Room" className="w-full h-[300px] object-cover rounded-lg" />
+          <div className="max-w-7xl mx-auto mb-16 grid lg:grid-cols-2 gap-16 items-center">
+            {/* Images - Creative Layout */}
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-3xl blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+              <div className="grid grid-cols-2 gap-4 relative z-10">
+                <img
+                  src="/images/about-2.png"
+                  alt="Hotel Room"
+                  className="w-full h-[320px] object-cover rounded-2xl shadow-lg transform translate-y-8 hover:translate-y-6 transition-all duration-500"
+                />
                 <img
                   src="/images/about-1.png"
                   alt="Hotel Room"
-                  className="w-full h-[300px] object-cover rounded-lg mt-8"
+                  className="w-full h-[320px] object-cover rounded-2xl shadow-lg -translate-y-8 hover:-translate-y-6 transition-all duration-500"
                 />
               </div>
             </div>
 
             {/* Content */}
-            <div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-6">Comfort Meets Affordability</h3>
-              <p className="text-gray-600 mb-8 leading-relaxed">
-                Welcome to O New Star Hotel, where we are dedicated to providing exceptional hospitality and creating
-                memorable experiences for our guests. Since our establishment, we have been committed to offering the
-                perfect blend of comfort, convenience, and value.
-              </p>
-
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#2671D9]/10 flex items-center justify-center">
-                <Car className="w-8 h-8 text-[#2671D9]" />
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                  Comfort Meets{" "}
+                  <span className="text-[#2671D9]">Affordability</span>
+                </h3>
+                <p className="text-gray-600 text-lg leading-relaxed border-l-4 border-[#2671D9] pl-6 italic">
+                  "Welcome to O New Star Hotel, where we are dedicated to providing exceptional hospitality and creating
+                  memorable experiences for our guests. Since our establishment, we have been committed to offering the
+                  perfect blend of comfort, convenience, and value."
+                </p>
               </div>
-              <h4 className="font-semibold text-gray-900 text-sm">Free Parking</h4>
             </div>
+          </div>
 
-            {/* Breakfast Available */}
-            <div className="bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#2671D9]/10 flex items-center justify-center">
-                <Coffee className="w-8 h-8 text-[#2671D9]" />
-              </div>
-              <h4 className="font-semibold text-gray-900 text-sm">Breakfast Available</h4>
-            </div>
-
-            {/* Air Conditioning */}
-            <div className="bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#2671D9]/10 flex items-center justify-center">
-                <Wind className="w-8 h-8 text-[#2671D9]" />
-              </div>
-              <h4 className="font-semibold text-gray-900 text-sm">Air Conditioning</h4>
-            </div>
-
-            {/* Flat Screen TV */}
-            <div className="bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#2671D9]/10 flex items-center justify-center">
-                <Tv className="w-8 h-8 text-[#2671D9]" />
-              </div>
-              <h4 className="font-semibold text-gray-900 text-sm">Flat Screen TV</h4>
-            </div>
-
-            {/* Central Location */}
-            <div className="bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#2671D9]/10 flex items-center justify-center">
-                <MapPinned className="w-8 h-8 text-[#2671D9]" />
-              </div>
-              <h4 className="font-semibold text-gray-900 text-sm">Central Location</h4>
+          {/* Features Grid - Modern Cards - Full Width Row */}
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {[
+                { icon: Car, label: "Free Parking" },
+                { icon: Coffee, label: "Breakfast" },
+                { icon: Wind, label: "AC Rooms" },
+                { icon: Tv, label: "Smart TV" },
+                { icon: MapPinned, label: "Prime Loc." },
+                { icon: Wifi, label: "Free WiFi" },
+              ].map((feature, idx) => (
+                <div
+                  key={idx}
+                  className="group bg-white border border-gray-100 p-4 rounded-xl shadow-sm hover:shadow-lg hover:border-[#2671D9]/20 transition-all duration-300 hover:-translate-y-1 cursor-default flex flex-col items-center justify-center gap-2"
+                >
+                  <div className="w-10 h-10 rounded-full bg-blue-50 group-hover:bg-[#2671D9] transition-colors duration-300 flex items-center justify-center">
+                    <feature.icon className="w-5 h-5 text-[#2671D9] group-hover:text-white transition-colors duration-300" />
+                  </div>
+                  <span className="font-semibold text-sm text-gray-700 group-hover:text-[#2671D9] transition-colors whitespace-nowrap">
+                    {feature.label}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>

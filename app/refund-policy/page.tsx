@@ -46,7 +46,7 @@ export default function RefundPolicyPage() {
                             If you have any questions about this policy prior to booking, please contact us at:
                         </p>
                         <ul className="list-disc pl-6 mt-2 space-y-1">
-                            <li>Email: info@onewstar.com</li>
+                            <li>Email: contact@onewstar.in</li>
                             <li>Phone: 80184 07510</li>
                         </ul>
                     </section>

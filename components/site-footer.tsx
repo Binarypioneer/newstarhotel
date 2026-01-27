@@ -10,7 +10,7 @@ export function SiteFooter() {
                     <div>
                         <h3 className="text-xl font-bold mb-4">O New Star</h3>
                         <p className="text-gray-400 text-sm leading-relaxed">
-                            Comfortable and affordable accommodation for travelers.
+                            Comfortable and affordable accommodation for Travellers.
                         </p>
                     </div>
 
@@ -60,14 +60,14 @@ export function SiteFooter() {
                             <li className="flex gap-2 text-gray-400 text-sm">
                                 <Phone className="w-5 h-5 flex-shrink-0 text-[#2671D9]" />
                                 <span>
-                                    80184 07510
+                                    +91 80184 07510
                                     <br />
-                                    80184 07510
+                                    +91 78490 79230
                                 </span>
                             </li>
                             <li className="flex gap-2 text-gray-400 text-sm">
                                 <Mail className="w-5 h-5 flex-shrink-0 text-[#2671D9]" />
-                                <span>info@onewstar.com</span>
+                                <span>contact@onewstar.in</span>
                             </li>
                         </ul>
                     </div>
