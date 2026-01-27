@@ -250,9 +250,9 @@ export default function HomePage() {
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">Contact</h4>
                     <p className="text-gray-600 text-sm">
-                      80184 07510
+                      +91 80184 07510
                       <br />
-                      80184 07510
+                      +91 78490 79230
                     </p>
                   </div>
                 </div>
