@@ -6,9 +6,11 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { MapPin, Phone, Mail, Wifi, Car, Coffee, Wind, Tv, MapPinned, Quote, Search } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Gallery } from "@/components/Gallery"
+import { JsonLd } from "@/components/json-ld"
+import { Anchor, Bird, Palmtree, Map, Train, Plane, Bus, Waves, HelpCircle, Info } from "lucide-react"
+import { SiteFooter } from "@/components/site-footer"
 
 export default function HomePage() {
   const [searchData, setSearchData] = useState<any>(null)
@@ -45,26 +47,11 @@ export default function HomePage() {
         <div className="relative z-10 w-full max-w-[1200px] mx-auto px-4 flex flex-col items-center">
           {/* Heading */}
           <div className="text-center mb-12 space-y-6 animate-in fade-in slide-in-from-bottom-10 duration-1000">
-            <span className="text-xl font-bold bg-clip-text text-transparent text-white mt-2 flex items-center justify-center gap-2">
-              O New Star Hotel
-              <span className="bg-blue-600/20 text-blue-400 text-xs px-2 py-0.5 rounded-full border border-blue-500/50 flex items-center gap-1 backdrop-blur-sm">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-3 h-3"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.498 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.491 4.491 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                Verified Lodge
-              </span>
-            </span>
-            <p className="text-white/90 text-xl md:text-3xl font-light tracking-wide drop-shadow-lg max-w-2xl mx-auto">
-              Your Sanctuary of Comfort in the Heart of the City.
+            <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight drop-shadow-2xl">
+              O New Star Lodge: The Best Budget Hotel in Chilika for a Memorable Stay
+            </h1>
+            <p className="text-white/90 text-xl md:text-2xl font-light tracking-wide drop-shadow-lg max-w-2xl mx-auto">
+              Your Sanctuary of Comfort in the Heart of the City. The preferred **lodge in Chilika** for tourists and travelers.
             </p>
           </div>
 
@@ -96,12 +83,12 @@ export default function HomePage() {
               <div className="grid grid-cols-2 gap-4 relative z-10">
                 <img
                   src="/images/about-2.png"
-                  alt="Hotel Room"
+                  alt="Deluxe AC Room at O New Star Lodge - Best Hotel in Chilika"
                   className="w-full h-[320px] object-cover rounded-2xl shadow-lg transform translate-y-8 hover:translate-y-6 transition-all duration-500"
                 />
                 <img
                   src="/images/about-1.png"
-                  alt="Hotel Room"
+                  alt="Comfortable stay near Chilika Lake at O New Star Hotel"
                   className="w-full h-[320px] object-cover rounded-2xl shadow-lg -translate-y-8 hover:-translate-y-6 transition-all duration-500"
                 />
               </div>
@@ -217,81 +204,224 @@ export default function HomePage() {
       <Gallery />
 
       {/* Location Section */}
-      <section id="location" className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-gray-900 mb-12">Location</h2>
+      <section id="location" className="py-24 bg-white relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">Location</h2>
+            <div className="w-24 h-1.5 bg-[#2671D9] rounded-full mb-12" />
 
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-            {/* Location Info */}
-            <div>
-              <p className="text-gray-600 mb-8 leading-relaxed">
-                Conveniently located near Chilka Railway Station in Balugaon, with easy access to public transport and
-                local attractions.
-              </p>
+            <div className="grid md:grid-cols-2 gap-16 items-center">
+              {/* Location Info */}
+              <div className="space-y-8">
+                <p className="text-gray-600 text-lg leading-relaxed border-l-4 border-blue-500 pl-6">
+                  Conveniently located near Chilka Railway Station in Balugaon, with easy access to public transport and
+                  local attractions.
+                </p>
 
-              <div className="space-y-6">
-                {/* Address */}
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0">
-                    <MapPin className="w-5 h-5 text-[#2671D9]" />
+                <div className="grid gap-6">
+                  {/* Address */}
+                  <div className="flex gap-4 p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-blue-200 transition-colors">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+                      <MapPin className="w-6 h-6 text-[#2671D9]" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-1 text-lg">Address</h4>
+                      <p className="text-gray-600">
+                        Plot No-68/1858, City - Balugaon,
+                        <br />
+                        Near Chilka Railway Station,
+                        <br />
+                        Dist - Khordha, Balugaon
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Address</h4>
-                    <p className="text-gray-600 text-sm">
-                      Plot No-68/1858, City - Balugaon,
-                      <br />
-                      Near Chilka Railway Station,
-                      <br />
-                      Dist - Khordha, Balugaon
-                    </p>
-                  </div>
-                </div>
 
-                {/* Contact */}
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0">
-                    <Phone className="w-5 h-5 text-[#2671D9]" />
+                  {/* Contact */}
+                  <div className="flex gap-4 p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-blue-200 transition-colors">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+                      <Phone className="w-6 h-6 text-[#2671D9]" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-1 text-lg">Contact</h4>
+                      <p className="text-gray-600">
+                        +91 80184 07510
+                        <br />
+                        +91 78490 79230
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Contact</h4>
-                    <p className="text-gray-600 text-sm">
-                      +91 80184 07510
-                      <br />
-                      +91 78490 79230
-                    </p>
-                  </div>
-                </div>
 
-                {/* Email */}
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0">
-                    <Mail className="w-5 h-5 text-[#2671D9]" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
-                    <p className="text-gray-600 text-sm">contact@onewstar.in</p>
+                  {/* Email */}
+                  <div className="flex gap-4 p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-blue-200 transition-colors">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+                      <Mail className="w-6 h-6 text-[#2671D9]" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-1 text-lg">Email</h4>
+                      <p className="text-gray-600">contact@onewstar.in</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Map */}
-            <div className="h-[400px] rounded-xl overflow-hidden border border-gray-200">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119540.68319568652!2d85.19332234335938!3d19.79013960000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a19c7a5e5b5e5e5%3A0x5e5e5e5e5e5e5e5e!2sChilka%20Railway%20Station!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
+              {/* Map */}
+              <div className="h-[500px] rounded-[2rem] overflow-hidden border-8 border-gray-50 shadow-2xl group relative">
+                <div className="absolute inset-0 bg-blue-600/5 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none" />
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119540.68319568652!2d85.19332234335938!3d19.79013960000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a19c7a5e5b5e5e5%3A0x5e5e5e5e5e5e5e5e!2sChilka%20Railway%20Station!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="grayscale hover:grayscale-0 transition-all duration-700 h-full"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section (SEO Optimized & Premium UI) */}
+      <section className="py-24 bg-white relative overflow-hidden">
+        {/* Abstract background blobs */}
+        <div className="absolute top-0 left-0 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-100/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-sm font-semibold mb-6">
+              <HelpCircle className="w-4 h-4" />
+              Common Questions
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+              Everything You Need to Know
+            </h2>
+            <div className="w-24 h-1.5 bg-blue-600 mx-auto rounded-full" />
+          </div>
+
+          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+            {[
+              {
+                q: "Best time to visit Chilika Lake?",
+                a: "November to February is peak season for migratory birds. The weather is perfect for temple tours and dolphin spotting."
+              },
+              {
+                q: "Location from Railway Station?",
+                a: "O New Star Lodge is located just minutes from Balugaon (Chilika) Station, making us the top choice for travelers."
+              },
+              {
+                q: "Do you have AC Family Rooms?",
+                a: "Yes, our spacious AC suites are designed for families, offering comfort and premium amenities at budget prices."
+              },
+              {
+                q: "Boat Booking Assistance?",
+                a: "Our desk assists with verified boat bookings to Kalijai Temple and Dolphin viewpoints to ensure you get the best rates."
+              }
+            ].map((faq, i) => (
+              <div 
+                key={i} 
+                className="group p-8 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300 hover:-translate-y-1"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                    <span className="text-xl font-bold">?</span>
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">{faq.q}</h4>
+                    <p className="text-gray-600 leading-relaxed italic border-l-2 border-blue-100 pl-4">{faq.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Modern High-Convert CTA */}
+      <section className="py-20">
+        <div className="container mx-auto px-6">
+          <div className="relative rounded-[2.5rem] bg-slate-900 overflow-hidden px-8 py-16 md:p-20 text-center text-white">
+            <div className="absolute inset-0 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center opacity-30" />
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-black/90" />
+            
+            <div className="relative z-10 max-w-3xl mx-auto space-y-8">
+              <h2 className="text-4xl md:text-6xl font-black leading-tight tracking-tight">
+                Ready to Experience <span className="text-blue-400">Chilika</span> Like Never Before?
+              </h2>
+              <p className="text-xl text-gray-300 font-light">
+                Join thousands of happy guests who chose comfort and affordability at O New Star Hotel.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+                <Link href="/rooms">
+                  <Button className="w-full sm:w-auto h-16 px-10 rounded-full bg-blue-600 hover:bg-blue-700 text-lg font-bold shadow-2xl shadow-blue-500/20 transform hover:scale-105 transition-all">
+                    Book Your Stay Now
+                  </Button>
+                </Link>
+                <Button variant="outline" className="w-full sm:w-auto h-16 px-10 rounded-full bg-white/10 hover:bg-white/20 border-white/20 text-white text-lg backdrop-blur-md">
+                  Contact Support
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <SiteFooter />
+      
+      {/* SEO: JSON-LD Structured Data */}
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": ["Hotel", "LocalBusiness"],
+        "name": "O New Star Lodge",
+        "image": "https://onewstar.in/images/hero-bg.jpg",
+        "@id": "https://onewstar.in",
+        "url": "https://onewstar.in",
+        "telephone": "+91 80184 07510",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Plot No-68/1858, Near Chilka Railway Station",
+          "addressLocality": "Balugaon",
+          "addressRegion": "Odisha",
+          "postalCode": "752030",
+          "addressCountry": "IN"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 19.7901396,
+          "longitude": 85.1933223
+        },
+        "priceRange": "₹-₹₹",
+        "amenityFeature": [
+          { "@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "AC Rooms", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true }
+        ]
+      }} />
+      
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the best time to visit Chilika Lake?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The best time to visit Chilika Lake is between November and February when migratory birds arrive from Siberia."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there a good boutique lodge in Chilika near the railway station?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, O New Star Lodge is located right near Chilika Railway Station (Balugaon), offering budget AC rooms and premium services."
+            }
+          }
+        ]
+      }} />
     </div>
   )
 }

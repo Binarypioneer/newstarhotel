@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { query, transaction } from "@/lib/db"
 import { isRoomAvailable, calculateNights } from "@/lib/availability"
+import { formatDate } from "@/lib/utils"
 
 export async function POST(request: Request) {
   try {
@@ -93,37 +94,37 @@ export async function POST(request: Request) {
       return newBooking
     })
 
-    return NextResponse.json({
-      booking: {
-        id: booking.id,
-        roomId: booking.room_id,
-        roomName: room.room_name,
-        roomNumber: room.room_number,
-        checkIn: booking.check_in_date,
-        checkOut: booking.check_out_date,
-        adults: booking.num_adults,
-        children: booking.num_children,
-        totalAmount: booking.total_amount,
-        guestName: booking.guest_name,
-        guestEmail: booking.guest_email,
-        status: booking.status,
-      },
-    })
-
     // Send Confirmation Email
-    const { sendEmail, generateBookingEmailHtml } = await import("@/lib/email")
-    await sendEmail({
-      to: guestEmail,
-      subject: `Booking Confirmed #${booking.id} - O New Star Hotel`,
-      html: generateBookingEmailHtml({
-        id: booking.id,
+    const { sendBookingConfirmationEmail, sendOwnerBookingNotification } = await import("@/lib/mail")
+    
+    // Send Guest Confirmation
+    await sendBookingConfirmationEmail(
+      guestEmail,
+      {
+        bookingId: booking.id.toString(),
         guestName: guestName,
         roomName: room.room_name,
-        roomNumber: room.room_number,
-        checkIn: checkIn,
-        checkOut: checkOut,
-        totalAmount: totalAmount,
-      })
+        checkIn: formatDate(checkIn),
+        checkOut: formatDate(checkOut),
+        totalAmount: Number(totalAmount),
+        adults: adults,
+        children: children || 0
+      }
+    )
+
+    // Send Owner Notification
+    await sendOwnerBookingNotification({
+      bookingId: booking.id.toString(),
+      guestName: guestName,
+      guestEmail: guestEmail,
+      guestPhone: guestPhone,
+      roomName: room.room_name,
+      checkIn: formatDate(checkIn),
+      checkOut: formatDate(checkOut),
+      totalAmount: Number(totalAmount),
+      adults: adults,
+      children: children || 0,
+      numExtraBeds: numExtraBeds || 0
     })
 
     return NextResponse.json({

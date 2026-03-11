@@ -4,15 +4,15 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Toaster } from "sonner"
 import "./globals.css"
-import { AuthProvider } from "@/components/auth/auth-provider"
+import { ClerkProvider } from "@clerk/nextjs"
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "NEW STAR LODGE",
+  title: "Best Lodge in Chilika | Budget Hotel near Chilika Lake - O New Star",
   description:
-    "Book your perfect room at NEW STAR LODGE in Balurgaon. Modern amenities, exceptional service, and prime location near Chilka Railway Station.",
+    "Looking for the best hotel in Chilika? O New Star Lodge offers budget-friendly, AC rooms near Chilika Lake. Book now for a comfortable stay near the railway station.",
   generator: "v0.app",
   icons: {
     icon: "/logo.png",
@@ -26,14 +26,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased`} suppressHydrationWarning>
-        <AuthProvider>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`font-sans antialiased`} suppressHydrationWarning>
           {children}
           <Toaster position="top-center" richColors />
           <Analytics />
-        </AuthProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }

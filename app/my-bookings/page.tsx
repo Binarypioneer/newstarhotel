@@ -1,4 +1,4 @@
-import { auth } from "@/auth"
+import { auth, currentUser } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 import { db } from "@/lib/prisma"
 import { formatDate } from "@/lib/utils"
@@ -9,15 +9,18 @@ import Link from "next/link"
 import Image from "next/image"
 
 export default async function MyBookingsPage() {
-    const session = await auth()
+    const { userId } = await auth()
+    const user = await currentUser()
 
-    if (!session?.user?.email) {
+    if (!userId || !user?.emailAddresses?.[0]?.emailAddress) {
         redirect("/auth/login?callbackUrl=/my-bookings")
     }
 
+    const userEmail = user.emailAddresses[0].emailAddress
+
     const bookings = await db.booking.findMany({
         where: {
-            guest_email: session.user.email
+            guest_email: userEmail
         },
         include: {
             room: true

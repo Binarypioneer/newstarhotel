@@ -1,4 +1,4 @@
-import { auth } from "@/auth"
+import { auth, currentUser } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 import { db } from "@/lib/prisma"
 import { CheckoutForm } from "@/components/checkout-form"
@@ -21,10 +21,11 @@ interface BookingPageProps {
 
 export default async function BookingPage({ searchParams }: { searchParams: Promise<BookingPageProps['searchParams']> }) {
     const params = await searchParams
-    const session = await auth()
+    const { userId } = await auth()
+    const user = await currentUser()
 
     // 1. Authentication Check
-    if (!session?.user) {
+    if (!userId || !user) {
         const callbackUrl = encodeURIComponent(`/book?roomId=${params.roomId}&checkIn=${params.checkIn}&checkOut=${params.checkOut}&adults=${params.adults}&children=${params.children}`)
         redirect(`/auth/login?callbackUrl=${callbackUrl}`)
     }
@@ -44,7 +45,7 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
     // 3. Fetch Room
     const room = await db.room.findUnique({
         where: { id: roomId },
-        include: { floor: true } // Assuming definition exists, but basic room data is key
+        include: { floor: true }
     })
 
     if (!room) {
@@ -67,7 +68,9 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
                 <CheckoutForm
                     room={{
                         ...room,
-                        price_per_night: Number(room.price_per_night)
+                        price_per_night: Number(room.price_per_night),
+                        floor_id: room.floor_id ?? 0,
+                        image_url: room.image_url ?? undefined
                     }}
                     checkIn={params.checkIn}
                     checkOut={params.checkOut}
@@ -75,7 +78,12 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
                     totalAmount={totalAmount}
                     adults={Number(params.adults || 1)}
                     children={Number(params.children || 0)}
-                    user={session.user}
+                    user={{
+                        id: user.id,
+                        name: `${user.firstName}${user.lastName ? ` ${user.lastName}` : ""}`,
+                        email: user.emailAddresses[0].emailAddress,
+                        image: user.imageUrl
+                    }}
                 />
             </div>
         </div>

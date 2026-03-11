@@ -1,8 +1,10 @@
-import { LoginForm } from "@/components/auth/login-form"
+import { SignIn } from "@clerk/nextjs"
 
 const LoginPage = () => {
     return (
-        <LoginForm />
+        <div className="flex items-center justify-center min-h-screen">
+            <SignIn />
+        </div>
     );
 }
 

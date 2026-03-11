@@ -1,6 +1,6 @@
 "use server"
 
-import { auth } from "@/auth"
+import { auth } from "@clerk/nextjs/server"
 import { db } from "@/lib/prisma"
 import { createRazorpayOrder, RazorpayOrderData } from "@/lib/razorpay"
 import { calculateNights } from "@/lib/availability"
@@ -11,9 +11,9 @@ export async function createOrder(
     checkOut: string
 ) {
     try {
-        const session = await auth()
+        const { userId } = await auth()
 
-        if (!session?.user) {
+        if (!userId) {
             return { error: "You must be logged in to book a room" }
         }
 

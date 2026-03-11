@@ -1,6 +1,6 @@
 "use server"
 
-import { auth } from "@/auth"
+import { auth } from "@clerk/nextjs/server"
 import { db } from "@/lib/prisma"
 import { verifyRazorpaySignature } from "@/lib/razorpay"
 import { calculateNights } from "@/lib/availability"
@@ -25,8 +25,8 @@ interface VerifyPaymentParams {
 
 export async function verifyPayment(params: VerifyPaymentParams) {
     try {
-        const session = await auth()
-        if (!session?.user) {
+        const { userId } = await auth()
+        if (!userId) {
             return { error: "Unauthorized" }
         }
 
